@@ -2,7 +2,7 @@ export type UnitClass = 'knight' | 'archer' | 'mage' | 'healer' | 'assassin';
 export type Slot = 'weapon' | 'armor' | 'keepsake';
 export type Side = 'A' | 'B';
 
-export interface stats {
+export interface Stats {
     hp: number;
     attack: number;
     defense: number;
@@ -12,7 +12,7 @@ export interface stats {
 export interface UnitTemplate {
     class: UnitClass;
     name: string;
-    stats: stats;
+    base: Stats;
     weightCapacity: number;
 }
 
@@ -21,7 +21,7 @@ export interface Item {
     name: string;
     slot: Slot;
     weight: number;
-    bonus: Partial<stats>;
+    bonus: Partial<Stats>;
 }
 
 export interface Loadout {
