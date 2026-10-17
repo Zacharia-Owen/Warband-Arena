@@ -21,4 +21,5 @@ export const ITEMS: Record<string, Item> = {
     'long-maple-bow': { id: 'long-maple-bow', name: 'Long Maple Bow', slot: 'weapon', weight: 5, bonus: { attack: 14, speed: -1 } },
     'cloth-robe': { id: 'cloth-robe', name: 'Cloth Robe', slot: 'armor', weight: 2, bonus: { defense: 3 } },
     'iron-dagger': { id: 'iron-dagger', name: 'Iron Dagger', slot: 'weapon', weight: 2, bonus: { attack: 5 } },
+    'iron-shield': { id: 'iron-shield', name: 'Iron Shield', slot: 'keepsake', weight: 5, bonus: { defense: 10 } },
 }
