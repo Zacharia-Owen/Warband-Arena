@@ -1,0 +1,21 @@
+import request from 'supertest'
+import { describe, expect, it} from 'vitest'
+import { createApp } from '../src/app'
+
+describe('GET /health', () => {
+    it('responds 200 with { status: "ok"}', async () =>{
+        const res = await request(createApp()).get('/health')
+        expect(res.status).toBe(200);
+        expect(res.body).toEqual({ status: 'ok' });
+    });
+
+    it('returns JSON', async () => {
+        const res = await request(createApp()).get('/health');
+        expect(res.headers['content-type']).toMatch(/application\/json/);
+    });
+
+    it('does not adveretise the framework in response headers', async () =>{
+        const res = await request(createApp()).get('/health');
+        expect(res.headers['x-powered-by']).toBeUndefined();
+    });
+});
