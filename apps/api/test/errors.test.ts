@@ -23,7 +23,7 @@ describe('error handling', () => {
 
         const res = await request(app).get('/boom');
         expect(res.status).toBe(500);
-        expect(res.body).toEqual({ error: 'Internal server error '});
+        expect(res.body).toEqual({ error: 'Internal server error' });
         expect(JSON.stringify(res.body)).not.toContain('secret');
     });
 });

@@ -11,7 +11,7 @@ export const errorHandler: ErrorRequestHandler = (err, _req, res, _next) => {
     } else if (err?.type === 'entity.parse.failed') {
         res.status(400).json({ error: 'Malformed JSON' });
     } else if (err?.type === 'entity.too.large') {
-        res.status(400).json({ error: 'Payload too large' });
+        res.status(413).json({ error: 'Payload too large' });
     } else {
         console.error(err);
         res.status(500).json({ error: 'Internal server error' }) // stops internal leaks

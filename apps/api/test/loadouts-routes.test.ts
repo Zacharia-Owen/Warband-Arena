@@ -6,8 +6,8 @@ const app = createApp();
 const post = (body?: unknown) => request(app).post('/api/loadouts/validate').send(body as object);
 
 describe('POST /loadouts/validate', () => {
-    it('reports a lefal loadout as valid', async () => {
-        const res = await post({ unit: 'knight', itemIds: ['iron-sword', 'irom-armor']});
+    it('reports a legal loadout as valid', async () => {
+        const res = await post({ unit: 'knight', itemIds: ['iron-sword', 'iron-armor']});
         expect(res.status).toBe(200);
         expect(res.body).toEqual({ valid: true, errors: [], totalWeight: expect.any(Number) });
     });
@@ -55,7 +55,7 @@ describe('POST /loadouts/validate', () => {
         expect(res.status).toBe(400);
     });
 
-    it('400s when on an oversized body', async () => {
+    it('returns 413 for an oversized body', async () => {
         const res = await post({ unit: 'knight', itemIds: Array(2000).fill('iron-sword') });
         expect(res.status).toBe(413);
     });
