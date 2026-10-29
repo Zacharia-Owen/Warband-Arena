@@ -98,6 +98,21 @@ describe('simulate: class rules', () => {
     });
 });
 
+describe('simulate: damage variance', () => {
+  it('varies between hits but stays within the 0-3 variance range', () => {
+    const bareHealer: Loadout = { unit: 'healer', itemIds: [] };
+    const damages = new Set<number>();
+    for (let seed = 0; seed < 200; seed++) {
+      for (const e of simulate([knight], [bareHealer], seed).log) {
+        // Knights never crit, and the target never changes, so every hit shares one base damage.
+        if (e.type === 'attack' && e.actor.startsWith('A')) damages.add(e.damage);
+      }
+    }
+    expect(damages.size).toBeGreaterThan(1);
+    expect(Math.max(...damages) - Math.min(...damages)).toBeLessThanOrEqual(3);
+  });
+});
+
 describe('simulate: regression snapshots', () => {
     it('matches snapshot for seed 42', () => {
         const r = simulate([knight], [assassin], 42);
@@ -108,31 +123,31 @@ describe('simulate: regression snapshots', () => {
               {
                 "actor": "B1-assassin",
                 "crit": false,
-                "damage": 3,
+                "damage": 4,
                 "defeated": false,
                 "round": 1,
                 "target": "A1-knight",
-                "targetHp": 117,
+                "targetHp": 116,
                 "type": "attack",
               },
               {
                 "actor": "A1-knight",
                 "crit": false,
-                "damage": 15,
+                "damage": 14,
                 "defeated": false,
                 "round": 1,
                 "target": "B1-assassin",
-                "targetHp": 55,
+                "targetHp": 56,
                 "type": "attack",
               },
               {
                 "actor": "B1-assassin",
-                "crit": true,
-                "damage": 6,
+                "crit": false,
+                "damage": 4,
                 "defeated": false,
                 "round": 2,
                 "target": "A1-knight",
-                "targetHp": 111,
+                "targetHp": 112,
                 "type": "attack",
               },
             ],
