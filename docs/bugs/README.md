@@ -34,11 +34,14 @@ Each round: create a branch `bug/<name>`, inject the bug, push, and watch CI. Th
 ### Not caught: write the test first, then fix
 | Inject this | Why it slips through |
 |---|---|
-| Remove the `Math.min` cap on healing (overheal) | Nothing checks that HP stays at or below max after a heal |
 | Change the healer's 50% threshold so it heals anyone | No test covers when a healer chooses to heal |
 | Log the wrong `targetHp` on heal events | Heal log entries are never asserted on |
-| Remove the `Math.max` stat floors in `computeStats` | No catalog item can trigger them. Test with a fake item or delete the code. |
 
+## Unreachable with the current catalog (not test gaps)
+| Inject this | Why no test can catch it |
+|---|---|
+| Remove the `Math.min` overheal cap | Heals only target allies under 50% HP, and every unit has at least 70 max HP, so a heal can never exceed the missing HP. Comparing 6,000 random battles with and without the cap showed no difference. |
+| Remove the `Math.max` stat floors in `computeStats` | None of the 142 legal loadouts produces a stat below its floor. |
 
 ## What this log taught me about my own tests
 - A passing test can be testing nothing. My first reproducibility test passed even when the endpoint didn't exist, because two identical 404 bodies are equal. Fix: also assert the status code.
