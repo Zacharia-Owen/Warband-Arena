@@ -1,8 +1,8 @@
 # Bug: <short title>
 
-- **Branch:** bug/...
-- **Layer:** core | api | web | db
-- **Caught by CI?** yes / no (if no, what test was missing?)
+- Branch:bug/...
+- Layer: core | api | web | db
+- Caught by CI? yes / no (if no, what test was missing?)
 
 ## Symptom
 What went wrong, and how you noticed.
