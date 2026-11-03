@@ -93,7 +93,7 @@ function isOver(all: Combatant[]): boolean {
 function takeTurn(actor: Combatant, all: Combatant[], rng: Rng, round: number, log: LogEvent[]): void {
     if (actor.unit === 'healer') {
         const hurt = alive(all, actor.side)
-        .filter((c) => c.hp < c.maxHp * 0.1)
+        .filter((c) => c.hp < c.maxHp * 0.5)
         .sort((a, b) => a.hp / a.maxHp - b.hp / b.maxHp || a.id.localeCompare(b.id));
         const patient = hurt[0];
         if (patient) {
