@@ -108,7 +108,7 @@ function takeTurn(actor: Combatant, all: Combatant[], rng: Rng, round: number, l
     const target = enemies[rng.int(0, enemies.length - 1)]!;
 
     const mitigation = actor.unit === 'mage' ? Math.floor(target.stats.defense / 2) : target.stats.defense;
-    const base = actor.stats.attack - mitigation
+    const base = Math.max(0, actor.stats.attack - mitigation)
     const variance = rng.int (0, 3);
     const crit = actor.unit === 'assassin' && rng.int(1, 100) < 25;
     const damage = (base + variance) * (crit ? 2 : 1);
